@@ -7,7 +7,8 @@ import utils.FileHandler;;
 public class AppendWordsThread extends Thread {
     private int threadNumber;
     private String file;
-    public AppendWordsThread (int threadNumber, String file) {
+
+    public AppendWordsThread(int threadNumber, String file) {
         this.threadNumber = threadNumber;
         this.file = file;
     }
@@ -17,7 +18,7 @@ public class AppendWordsThread extends Thread {
         System.out.println("Running " + threadNumber);
         String fileName = "src/archives/archives" + threadNumber + ".txt";
         String fileContent = FileHandler.readFile(fileName);
-        String wordCount = FileHandler.getWordCount(fileContent);
+        String wordCount = FileHandler.emitWords(fileContent);
         FileHandler.appendText(this.file, wordCount);
     }
 }

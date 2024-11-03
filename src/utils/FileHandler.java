@@ -2,10 +2,8 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileReader;
 import java.util.StringJoiner;
 
 public final class FileHandler {
@@ -16,6 +14,26 @@ public final class FileHandler {
             bufferedWriter.close();
         } catch (Exception e) {
             System.out.println("Error appending file: " + e.getMessage());
+        }
+    }
+
+    public static void clearFile(String file) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write("");
+            bufferedWriter.close();
+        } catch (Exception e) {
+            System.out.println("Error clearing file: " + e.getMessage());
+        }
+    }
+
+    public static void writeText(String file, String text) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write(text);
+            bufferedWriter.close();
+        } catch (Exception e) {
+            System.out.println("Error writing file: " + e.getMessage());
         }
     }
 
@@ -36,26 +54,20 @@ public final class FileHandler {
         }
     }
 
-    public static String getWordCount(String text) {
+    public static String emitWords(String text) {
         StringJoiner wordCount = new StringJoiner("\n");
 
         String[] wordsArr = text.split("[\\r\\n\\t ]");
 
-        Map<String, Integer> map = new HashMap<>();
-
         for (String word : wordsArr) {
-            if (word == "") continue;
-            if (map.containsKey(word)) {
-                map.put(word, map.get(word) + 1);
-            } else {
-                map.put(word, 1);
-            }
+            wordCount.add(word + ": " + 1);
         }
 
-        map.forEach((key, value) -> {
-            wordCount.add(key + ": " + value);
-        });
-
         return wordCount.toString();
+    }
+
+    public static String[] getLines(String file) {
+        String text = FileHandler.readFile(file);
+        return text.split(System.getProperty("line.separator"));
     }
 }
