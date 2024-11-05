@@ -13,10 +13,13 @@ public class CountWordsReduce implements Reduce {
     }
 
     public void run() {
+        FileHandler.clearFile(this.finalArchive);
         String[] valuesToProcess = FileHandler.getLines(this.intermediateArchive);
+        System.out.println("Counting " + valuesToProcess.length + " words");
         for (int i = 0; i < valuesToProcess.length; i++) {
             CountWordsThread thread = new CountWordsThread(i, this.finalArchive, valuesToProcess[i]);
             thread.start();
         }
+        FileHandler.clearFile(this.intermediateArchive);
     }
 }
