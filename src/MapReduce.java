@@ -14,8 +14,8 @@ public class MapReduce {
     }
 
     public void run() {
-        //this.map.run();
-        //this.shuffle.shuffle();
+        this.map.run();
+        this.shuffle.shuffle();
         this.reduce.run();
     }
 }
