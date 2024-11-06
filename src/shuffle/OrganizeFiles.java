@@ -17,6 +17,7 @@ public class OrganizeFiles implements Shuffle {
         Map<String, String> mapOfKeys = new HashMap<String, String>();
         for (String key : keys) {
             String[] keyValues = key.split(" ");
+            if (keyValues.length < 2 || keyValues[0] == "") continue;
             String keyValue = keyValues[0];
             String value = keyValues[1];
             if (mapOfKeys.containsKey(keyValue)) {
@@ -32,9 +33,11 @@ public class OrganizeFiles implements Shuffle {
         Collections.sort(keyAlphabetic, Comparator.comparing(String::toString));
 
         FileHandler.clearFile(fileName);
+        StringBuilder sBuilder = new StringBuilder();
         keyAlphabetic.forEach((key) -> {
-            FileHandler.appendText(fileName, (key + " " + mapOfKeys.get(key)));
+            sBuilder.append((key + " " + mapOfKeys.get(key)) + System.getProperty("line.separator"));
         });
+        FileHandler.appendText(fileName, sBuilder.toString());
     }
 
 }
