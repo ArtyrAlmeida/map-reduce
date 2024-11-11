@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -69,5 +70,16 @@ public final class FileHandler {
     public static String[] getLines(String file) {
         String text = FileHandler.readFile(file);
         return text.split(System.getProperty("line.separator"));
+    }
+
+    public static int getNumberOfFiles(String path, String interest) {
+        File[] fileList = new File(path).listFiles();
+        int numberOfFiles = 0;
+        for(File file : fileList) {
+            if (file.getName().contains(interest)) {
+                numberOfFiles += 1;
+            };
+        }
+        return numberOfFiles;
     }
 }

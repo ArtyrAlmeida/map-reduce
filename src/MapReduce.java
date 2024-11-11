@@ -13,9 +13,14 @@ public class MapReduce {
         this.reduce = reduce;
     }
 
+    public MapReduce(Map map, Reduce reduce) {
+        this.map = map;
+        this.reduce = reduce;
+    }
+    
     public void run() {
         this.map.run();
-        this.shuffle.shuffle();
+        if (this.shuffle != null) this.shuffle.shuffle();
         this.reduce.run();
     }
 }
